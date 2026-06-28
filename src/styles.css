@@ -692,3 +692,55 @@ h3 {
     border-radius: 30px;
   }
 }
+.reveal {
+  opacity: 0;
+  transform: translateY(34px);
+  transition:
+    opacity 0.9s ease,
+    transform 0.9s ease;
+}
+
+.reveal.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.info-image-wrap {
+  width: 92px;
+  height: 92px;
+  margin: 0 auto 22px;
+  border-radius: 28px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: radial-gradient(circle at 30% 20%, #f4d79e, #2b6b49 58%, #173b2a 100%);
+  box-shadow:
+    inset 0 2px 2px rgba(255,255,255,0.35),
+    0 22px 42px rgba(0,0,0,0.28);
+}
+
+.info-image-wrap img {
+  width: 74px;
+  height: 74px;
+  object-fit: contain;
+  filter: drop-shadow(0 12px 14px rgba(0,0,0,0.28));
+}
+
+.feature-card,
+.info-item,
+.content-card,
+.cta-card,
+.image-stack,
+.floating-card {
+  will-change: transform;
+}
+
+.info-item {
+  transition:
+    transform 0.35s ease,
+    box-shadow 0.35s ease;
+}
+
+.info-item:hover {
+  transform: translateY(-8px);
+}

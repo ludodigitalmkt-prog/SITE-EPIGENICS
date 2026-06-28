@@ -1,3 +1,5 @@
+import { useEffect } from 'react'
+
 const BASE_URL = import.meta.env.BASE_URL
 
 function App() {
@@ -6,6 +8,36 @@ function App() {
     `${BASE_URL}hero/hero-desktop-02.webp.png`,
     `${BASE_URL}hero/hero-desktop-03.webp.png`,
   ]
+
+  const processImages = [
+    `${BASE_URL}sections/section-01.png`,
+    `${BASE_URL}sections/section-02.png`,
+    `${BASE_URL}sections/section-03.png`,
+    `${BASE_URL}sections/section-04.png`,
+  ]
+
+  useEffect(() => {
+    const elements = document.querySelectorAll('.reveal')
+
+    const observer = new IntersectionObserver(
+      entries => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('is-visible')
+          }
+        })
+      },
+      {
+        threshold: 0.14,
+      }
+    )
+
+    elements.forEach(element => observer.observe(element))
+
+    return () => {
+      observer.disconnect()
+    }
+  }, [])
 
   return (
     <main className="site">
@@ -16,7 +48,7 @@ function App() {
         <div className="paper-layer paper-layer-two"></div>
 
         <div className="container hero-grid">
-          <div className="hero-content">
+          <div className="hero-content reveal">
             <span className="eyebrow">Medicina personalizada</span>
 
             <h1>
@@ -40,7 +72,7 @@ function App() {
             </div>
           </div>
 
-          <div className="hero-visual">
+          <div className="hero-visual reveal">
             <div className="image-card main-image-card">
               <img src={heroImages[0]} alt="Epigenics exame personalizado" />
             </div>
@@ -62,7 +94,7 @@ function App() {
 
       <section className="section soft-section" id="como-funciona">
         <div className="container">
-          <div className="section-heading">
+          <div className="section-heading reveal">
             <span className="eyebrow">Como funciona</span>
             <h2>Uma experiência simples, elegante e orientada por dados.</h2>
             <p>
@@ -72,18 +104,37 @@ function App() {
             </p>
           </div>
 
-          <div className="feature-strip">
-            <InfoItem title="Coleta orientada" text="Processo simples, com acompanhamento e direcionamento claro." />
-            <InfoItem title="Análise epigenética" text="Informações que ajudam a entender sinais do organismo." />
-            <InfoItem title="Plano personalizado" text="Resultados usados para apoiar estratégias de saúde." />
-            <InfoItem title="Acompanhamento" text="Mais clareza para conduzir mudanças de rotina." />
+          <div className="feature-strip reveal">
+            <InfoItem
+              image={processImages[0]}
+              title="Coleta orientada"
+              text="Processo simples, com acompanhamento e direcionamento claro."
+            />
+
+            <InfoItem
+              image={processImages[1]}
+              title="Análise epigenética"
+              text="Informações que ajudam a entender sinais do organismo."
+            />
+
+            <InfoItem
+              image={processImages[2]}
+              title="Plano personalizado"
+              text="Resultados usados para apoiar estratégias de saúde."
+            />
+
+            <InfoItem
+              image={processImages[3]}
+              title="Acompanhamento"
+              text="Mais clareza para conduzir mudanças de rotina."
+            />
           </div>
         </div>
       </section>
 
       <section className="section cards-section">
         <div className="container">
-          <div className="section-heading left">
+          <div className="section-heading left reveal">
             <span className="eyebrow">Áreas avaliadas</span>
             <h2>Um olhar completo para o seu equilíbrio.</h2>
           </div>
@@ -130,11 +181,11 @@ function App() {
 
       <section className="section image-text-section">
         <div className="container image-text-grid">
-          <div className="image-stack">
+          <div className="image-stack reveal">
             <img src={heroImages[1]} alt="Tecnologia e saúde Epigenics" />
           </div>
 
-          <div className="content-card">
+          <div className="content-card reveal">
             <span className="eyebrow">Tecnologia + saúde</span>
             <h2>Um exame para quem busca cuidado mais inteligente.</h2>
             <p>
@@ -154,7 +205,7 @@ function App() {
 
       <section className="section cta-section" id="contato">
         <div className="container">
-          <div className="cta-card">
+          <div className="cta-card reveal">
             <div>
               <span className="eyebrow">Agende sua avaliação</span>
               <h2>Comece a entender seu corpo de forma mais personalizada.</h2>
@@ -164,7 +215,12 @@ function App() {
               </p>
             </div>
 
-            <a className="btn-primary" href="https://wa.me/5500000000000" target="_blank">
+            <a
+              className="btn-primary"
+              href="https://wa.me/5500000000000"
+              target="_blank"
+              rel="noreferrer"
+            >
               Falar no WhatsApp
             </a>
           </div>
@@ -192,10 +248,13 @@ function Header() {
   )
 }
 
-function InfoItem({ title, text }) {
+function InfoItem({ image, title, text }) {
   return (
     <article className="info-item">
-      <div className="mini-icon"></div>
+      <div className="info-image-wrap">
+        <img src={image} alt={title} />
+      </div>
+
       <h3>{title}</h3>
       <p>{text}</p>
     </article>
@@ -204,7 +263,7 @@ function InfoItem({ title, text }) {
 
 function FeatureCard({ number, title, text }) {
   return (
-    <article className="feature-card">
+    <article className="feature-card reveal">
       <span>{number}</span>
       <h3>{title}</h3>
       <p>{text}</p>
