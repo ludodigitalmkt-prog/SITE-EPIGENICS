@@ -10,11 +10,13 @@ function App() {
   ]
 
   const processImages = [
-    `${BASE_URL}sections/section-01.png`,
-    `${BASE_URL}sections/section-02.png`,
-    `${BASE_URL}sections/section-03.png`,
-    `${BASE_URL}sections/section-04.png`,
+    `${BASE_URL}sections/section-coleta-exame.webp.png`,
+    `${BASE_URL}sections/section-exame-epigenetico.webp.png`,
+    `${BASE_URL}sections/section-medicina-personalizada.webp.png`,
+    `${BASE_URL}sections/section-seguranca-exame.webp.png`,
   ]
+
+  const aboutImage = `${BASE_URL}sections/section-sobre-epigenics.webp.png`
 
   useEffect(() => {
     const elements = document.querySelectorAll('.reveal')
@@ -28,7 +30,7 @@ function App() {
         })
       },
       {
-        threshold: 0.14,
+        threshold: 0.16,
       }
     )
 
@@ -104,7 +106,7 @@ function App() {
             </p>
           </div>
 
-          <div className="feature-strip reveal">
+          <div className="process-panel reveal">
             <InfoItem
               image={processImages[0]}
               title="Coleta orientada"
@@ -125,8 +127,8 @@ function App() {
 
             <InfoItem
               image={processImages[3]}
-              title="Acompanhamento"
-              text="Mais clareza para conduzir mudanças de rotina."
+              title="Segurança no exame"
+              text="Mais confiança durante toda a jornada de avaliação."
             />
           </div>
         </div>
@@ -182,7 +184,7 @@ function App() {
       <section className="section image-text-section">
         <div className="container image-text-grid">
           <div className="image-stack reveal">
-            <img src={heroImages[1]} alt="Tecnologia e saúde Epigenics" />
+            <img src={aboutImage} alt="Sobre a Epigenics" />
           </div>
 
           <div className="content-card reveal">
