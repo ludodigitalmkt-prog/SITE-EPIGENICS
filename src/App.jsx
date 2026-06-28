@@ -3,53 +3,53 @@ import React from 'react'
 const WHATSAPP = '5541999999999'
 
 const A = {
-  logo: '/assets/logo/favicon.png',
-  logoWhite: '/assets/logo/favicon.png',
-  logoHorizontal: '/assets/logo/favicon.png',
-  icon: '/assets/logo/favicon.png',
+  logo: '/logo/favicon.png',
+  logoWhite: '/logo/favicon.png',
+  logoHorizontal: '/logo/favicon.png',
+  icon: '/logo/favicon.png',
 
   heroDesktop: [
-    '/assets/hero/hero-desktop-01.webp.png',
-    '/assets/hero/hero-desktop-02.webp.png',
-    '/assets/hero/hero-desktop-03.webp.png',
+    '/hero/hero-desktop-01.webp.png',
+    '/hero/hero-desktop-02.webp.png',
+    '/hero/hero-desktop-03.webp.png',
   ],
 
   heroMobile: [
-    '/assets/hero/hero-desktop-01.webp.png',
-    '/assets/hero/hero-desktop-02.webp.png',
-    '/assets/hero/hero-desktop-03.webp.png',
+    '/hero/hero-desktop-01.webp.png',
+    '/hero/hero-desktop-02.webp.png',
+    '/hero/hero-desktop-03.webp.png',
   ],
 
   sections: {
-    sobre: '/assets/sections/section-sobre-epigenics.webp.png',
-    exame: '/assets/sections/section-exame-epigenetico.webp.png',
-    coleta: '/assets/sections/section-coleta-exame.webp.png',
-    seguranca: '/assets/sections/section-seguranca-exame.webp.png',
-    medicina: '/assets/sections/section-medicina-personalizada.webp.png',
+    sobre: '/sections/section-sobre-epigenics.webp.png',
+    exame: '/sections/section-exame-epigenetico.webp.png',
+    coleta: '/sections/section-coleta-exame.webp.png',
+    seguranca: '/sections/section-seguranca-exame.webp.png',
+    medicina: '/sections/section-medicina-personalizada.webp.png',
   },
 
   cards: {
-    coleta: '/assets/cards/card-coleta-segura.webp.png',
-    analise: '/assets/cards/card-analise-personalizada.webp.png',
-    tecnologia: '/assets/cards/card-tecnologia-avancada.webp.png',
-    prevencao: '/assets/cards/card-prevencao-bem-estar.webp.png',
-    resultados: '/assets/cards/card-prevencao-bem-estar.webp.png',
-    cuidado: '/assets/cards/card-cuidado-individualizado.webp.png',
+    coleta: '/cards/card-coleta-segura.webp.png',
+    analise: '/cards/card-analise-personalizada.webp.png',
+    tecnologia: '/cards/card-tecnologia-avancada.webp.png',
+    prevencao: '/cards/card-prevencao-bem-estar.webp.png',
+    resultados: '/sections/section-seguranca-exame.webp.png',
+    cuidado: '/cards/card-cuidado-individualizado.webp.png',
   },
 
   decor: {
-    dna1: '/assets/decor/dna-3d-01.png',
-    dna2: '/assets/decor/dna-3d-02.png',
-    linha1: '/assets/decor/linha-dourada-01.png',
-    linha2: '/assets/decor/linha-dourada-02.png',
-    particulas1: '/assets/decor/particulas-cientificas-01.png',
-    particulas2: '/assets/decor/particulas-cientificas-02.png',
+    dna1: '/decor/dna-3d-01.png',
+    dna2: '/decor/dna-3d-02.png',
+    linha1: '/decor/linha-dourada-01.png',
+    linha2: '/decor/linha-dourada-02.png',
+    particulas1: '/decor/particulas-cientificas-01.png',
+    particulas2: '/decor/particulas-cientificas-02.png',
   },
 
   people: {
-    coleta: '/assets/people/atendimento-coleta-01.webp.png',
-    paciente: '/assets/people/paciente-clinica-01.webp.png',
-    dados: '/assets/people/profissional-dados-01.webp.png',
+    coleta: '/people/atendimento-coleta-01.webp.png',
+    paciente: '/people/paciente-clinica-01.webp.png',
+    dados: '/people/profissional-dados-01.webp.png',
   },
 }
 
