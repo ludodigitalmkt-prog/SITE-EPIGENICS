@@ -80,6 +80,10 @@ function App() {
               <a className="btn-secondary" href="#como-funciona">
                 Como funciona
               </a>
+
+              <a className="btn-secondary" href={`${BASE_URL}simulador.html`}>
+                Fazer simulação
+              </a>
             </div>
           </div>
 
@@ -258,6 +262,7 @@ function Header() {
 
         <nav>
           <a href="#como-funciona">Como funciona</a>
+          <a href={`${BASE_URL}simulador.html`}>Simulador</a>
           <a href="#contato">Contato</a>
         </nav>
       </div>

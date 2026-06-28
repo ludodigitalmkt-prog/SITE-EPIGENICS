@@ -1,0 +1,1140 @@
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <title>Simulador Epigenics | Mapa de Estilo de Vida</title>
+
+    <style>
+      :root {
+        --deep: #063f3a;
+        --deep-2: #042e2a;
+        --green: #0a5a50;
+        --green-soft: #177468;
+        --mint: #dfe9df;
+        --paper: #f0f2e8;
+        --cream: #fff4dc;
+        --gold: #ccb071;
+        --text: #143330;
+        --muted: #6f7f78;
+        --shadow: rgba(4, 32, 29, 0.24);
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      html {
+        scroll-behavior: smooth;
+      }
+
+      body {
+        margin: 0;
+        font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+        color: var(--text);
+        background:
+          radial-gradient(circle at 14% 8%, rgba(255,255,255,0.88), transparent 26%),
+          radial-gradient(circle at 84% 4%, rgba(192,218,197,0.88), transparent 34%),
+          linear-gradient(145deg, #f1f2e7 0%, #dbe6db 44%, #ccd9ce 100%);
+        overflow-x: hidden;
+      }
+
+      body::before {
+        content: "";
+        position: fixed;
+        inset: 0;
+        pointer-events: none;
+        opacity: 0.16;
+        background-image:
+          linear-gradient(rgba(5, 63, 58, 0.08) 1px, transparent 1px),
+          linear-gradient(90deg, rgba(5, 63, 58, 0.06) 1px, transparent 1px);
+        background-size: 18px 18px;
+        mix-blend-mode: multiply;
+      }
+
+      a {
+        color: inherit;
+        text-decoration: none;
+      }
+
+      .page {
+        min-height: 100vh;
+        position: relative;
+        padding-bottom: 90px;
+      }
+
+      .container {
+        width: min(1180px, calc(100% - 40px));
+        margin: 0 auto;
+      }
+
+      .topbar {
+        position: sticky;
+        top: 16px;
+        z-index: 20;
+        width: min(1180px, calc(100% - 40px));
+        margin: 16px auto 0;
+        padding: 12px 18px;
+        border-radius: 999px;
+        background: rgba(5, 63, 58, 0.94);
+        color: var(--cream);
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        box-shadow:
+          inset 0 1px 1px rgba(255,255,255,0.18),
+          0 18px 46px rgba(5, 47, 43, 0.26);
+        backdrop-filter: blur(18px);
+      }
+
+      .brand {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        font-weight: 900;
+        letter-spacing: -0.03em;
+      }
+
+      .brand-mark {
+        width: 42px;
+        height: 42px;
+        border-radius: 50%;
+        background:
+          radial-gradient(circle at 30% 20%, #fff1bb 0%, #ccb071 30%, #177468 58%, #063f3a 100%);
+        box-shadow:
+          inset 0 2px 2px rgba(255,255,255,0.4),
+          0 12px 26px rgba(0,0,0,0.22);
+      }
+
+      .topbar nav {
+        display: flex;
+        gap: 10px;
+      }
+
+      .topbar a {
+        padding: 11px 16px;
+        border-radius: 999px;
+        color: rgba(255, 244, 220, 0.84);
+        transition: 0.25s ease;
+        font-size: 0.94rem;
+      }
+
+      .topbar a:hover {
+        background: var(--cream);
+        color: var(--deep);
+        transform: translateY(-2px);
+      }
+
+      .hero {
+        padding: 86px 0 52px;
+        position: relative;
+      }
+
+      .hero-grid {
+        display: grid;
+        grid-template-columns: 1.05fr 0.95fr;
+        gap: 42px;
+        align-items: center;
+      }
+
+      .paper-card {
+        border-radius: 48px;
+        background:
+          linear-gradient(145deg, rgba(255,255,255,0.72), rgba(224,233,222,0.42));
+        border: 1px solid rgba(5,63,58,0.12);
+        box-shadow:
+          inset 0 1px 2px rgba(255,255,255,0.86),
+          0 34px 84px rgba(4, 32, 29, 0.15);
+      }
+
+      .hero-copy {
+        padding: 50px;
+      }
+
+      .eyebrow {
+        display: inline-flex;
+        padding: 10px 16px;
+        border-radius: 999px;
+        color: var(--cream);
+        background: linear-gradient(135deg, var(--deep), var(--green-soft));
+        box-shadow:
+          inset 0 1px 1px rgba(255,255,255,0.22),
+          0 16px 34px rgba(4, 32, 29, 0.18);
+        font-weight: 900;
+        font-size: 0.76rem;
+        text-transform: uppercase;
+        letter-spacing: 0.11em;
+      }
+
+      h1,
+      h2,
+      h3,
+      p {
+        margin-top: 0;
+      }
+
+      h1 {
+        margin: 24px 0 20px;
+        color: var(--deep);
+        font-size: clamp(2.7rem, 5.4vw, 5.7rem);
+        line-height: 0.92;
+        letter-spacing: -0.075em;
+      }
+
+      .lead {
+        color: rgba(20, 51, 48, 0.72);
+        font-size: 1.08rem;
+        line-height: 1.75;
+        max-width: 680px;
+      }
+
+      .hero-actions {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 14px;
+        margin-top: 32px;
+      }
+
+      .btn {
+        border: 0;
+        cursor: pointer;
+        min-height: 56px;
+        padding: 0 24px;
+        border-radius: 999px;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        font-weight: 900;
+        letter-spacing: -0.02em;
+        transition: 0.28s ease;
+      }
+
+      .btn-primary {
+        color: var(--cream);
+        background: linear-gradient(135deg, var(--deep), var(--green-soft));
+        box-shadow:
+          inset 0 2px 2px rgba(255,255,255,0.24),
+          0 22px 44px rgba(4, 32, 29, 0.25);
+      }
+
+      .btn-secondary {
+        color: var(--deep);
+        background: rgba(255,255,255,0.54);
+        border: 1px solid rgba(5,63,58,0.14);
+        box-shadow:
+          inset 0 1px 1px rgba(255,255,255,0.8),
+          0 16px 34px rgba(4, 32, 29, 0.12);
+      }
+
+      .btn:hover {
+        transform: translateY(-5px);
+      }
+
+      .visual-card {
+        min-height: 520px;
+        padding: 28px;
+        background:
+          radial-gradient(circle at 28% 14%, rgba(255,244,220,0.22), transparent 28%),
+          linear-gradient(145deg, #0a5a50, #052e2a);
+        color: var(--cream);
+        overflow: hidden;
+        position: relative;
+      }
+
+      .visual-card::before {
+        content: "";
+        position: absolute;
+        width: 420px;
+        height: 420px;
+        right: -120px;
+        top: -110px;
+        border-radius: 50%;
+        background: radial-gradient(circle, rgba(204,176,113,0.28), transparent 68%);
+      }
+
+      .mini-window {
+        position: relative;
+        z-index: 2;
+        border-radius: 38px;
+        padding: 24px;
+        min-height: 464px;
+        background:
+          linear-gradient(145deg, rgba(255,255,255,0.12), rgba(255,255,255,0.03));
+        border: 1px solid rgba(255,244,220,0.14);
+        box-shadow:
+          inset 0 1px 1px rgba(255,255,255,0.15),
+          0 30px 70px rgba(0,0,0,0.2);
+      }
+
+      .graph-stage {
+        height: 300px;
+        display: flex;
+        align-items: end;
+        justify-content: space-around;
+        gap: 14px;
+        padding: 28px 18px 20px;
+        perspective: 800px;
+      }
+
+      .bar-group {
+        width: 72px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 12px;
+      }
+
+      .bar {
+        width: 56px;
+        height: 180px;
+        border-radius: 18px 18px 10px 10px;
+        position: relative;
+        display: flex;
+        align-items: end;
+        background: rgba(255,255,255,0.08);
+        box-shadow:
+          inset 0 1px 1px rgba(255,255,255,0.16),
+          0 18px 36px rgba(0,0,0,0.22);
+        overflow: hidden;
+        transform: rotateX(6deg) rotateY(-6deg);
+      }
+
+      .bar-fill {
+        width: 100%;
+        height: 45%;
+        border-radius: 18px 18px 10px 10px;
+        background: linear-gradient(180deg, #fff1bb 0%, #ccb071 34%, #34a383 100%);
+        box-shadow:
+          inset 0 2px 2px rgba(255,255,255,0.34),
+          0 -10px 24px rgba(255,241,187,0.15);
+        transition: height 0.9s ease;
+      }
+
+      .bar-label {
+        font-size: 0.72rem;
+        color: rgba(255,244,220,0.74);
+        text-align: center;
+        line-height: 1.25;
+      }
+
+      .score-bubble {
+        margin: 12px auto 0;
+        width: min(100%, 330px);
+        padding: 18px;
+        border-radius: 26px;
+        background: rgba(255,244,220,0.1);
+        border: 1px solid rgba(255,244,220,0.14);
+        text-align: center;
+      }
+
+      .score-bubble strong {
+        display: block;
+        font-size: 2.4rem;
+        letter-spacing: -0.06em;
+      }
+
+      .section {
+        padding: 56px 0;
+      }
+
+      .section-heading {
+        max-width: 860px;
+        margin: 0 auto 34px;
+        text-align: center;
+      }
+
+      .section-heading h2 {
+        margin: 18px 0 12px;
+        color: var(--deep);
+        font-size: clamp(2rem, 4vw, 4rem);
+        line-height: 0.98;
+        letter-spacing: -0.065em;
+      }
+
+      .section-heading p {
+        color: rgba(20,51,48,0.72);
+        line-height: 1.7;
+        font-size: 1.04rem;
+      }
+
+      .simulator {
+        display: grid;
+        grid-template-columns: 0.92fr 1.08fr;
+        gap: 28px;
+        align-items: start;
+      }
+
+      .form-card,
+      .result-card {
+        padding: 34px;
+      }
+
+      .form-grid {
+        display: grid;
+        gap: 18px;
+      }
+
+      label {
+        display: grid;
+        gap: 8px;
+        font-weight: 800;
+        color: var(--deep);
+        letter-spacing: -0.02em;
+      }
+
+      label small {
+        color: var(--muted);
+        font-weight: 600;
+        line-height: 1.4;
+      }
+
+      input,
+      select {
+        width: 100%;
+        min-height: 52px;
+        border: 1px solid rgba(5,63,58,0.14);
+        border-radius: 18px;
+        padding: 0 16px;
+        background: rgba(255,255,255,0.58);
+        color: var(--deep);
+        font-size: 1rem;
+        outline: none;
+        box-shadow:
+          inset 0 1px 1px rgba(255,255,255,0.8),
+          0 10px 22px rgba(4,32,29,0.08);
+      }
+
+      input:focus,
+      select:focus {
+        border-color: rgba(10,90,80,0.45);
+        box-shadow:
+          0 0 0 4px rgba(10,90,80,0.12),
+          inset 0 1px 1px rgba(255,255,255,0.8),
+          0 10px 22px rgba(4,32,29,0.08);
+      }
+
+      .two-cols {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 14px;
+      }
+
+      .result-card {
+        position: sticky;
+        top: 112px;
+        overflow: hidden;
+      }
+
+      .result-top {
+        display: flex;
+        justify-content: space-between;
+        gap: 20px;
+        align-items: start;
+        margin-bottom: 22px;
+      }
+
+      .result-score {
+        width: 142px;
+        height: 142px;
+        border-radius: 38px;
+        display: grid;
+        place-items: center;
+        background:
+          radial-gradient(circle at 25% 18%, #fff1bb 0%, #ccb071 30%, #177468 58%, #063f3a 100%);
+        color: var(--cream);
+        box-shadow:
+          inset 0 2px 2px rgba(255,255,255,0.34),
+          0 24px 54px rgba(4, 32, 29, 0.23);
+      }
+
+      .result-score strong {
+        font-size: 3.1rem;
+        letter-spacing: -0.08em;
+      }
+
+      .result-score span {
+        display: block;
+        font-size: 0.78rem;
+        text-transform: uppercase;
+        letter-spacing: 0.08em;
+        opacity: 0.84;
+      }
+
+      .result-title h3 {
+        margin: 8px 0 10px;
+        color: var(--deep);
+        font-size: 2rem;
+        line-height: 1;
+        letter-spacing: -0.06em;
+      }
+
+      .result-title p {
+        color: rgba(20,51,48,0.72);
+        line-height: 1.65;
+        margin: 0;
+      }
+
+      .metric-bars {
+        display: grid;
+        gap: 12px;
+        margin: 26px 0;
+      }
+
+      .metric {
+        display: grid;
+        gap: 8px;
+      }
+
+      .metric-head {
+        display: flex;
+        justify-content: space-between;
+        font-weight: 800;
+        color: var(--deep);
+        font-size: 0.92rem;
+      }
+
+      .track {
+        height: 14px;
+        border-radius: 999px;
+        overflow: hidden;
+        background: rgba(5,63,58,0.1);
+        box-shadow: inset 0 1px 2px rgba(4,32,29,0.1);
+      }
+
+      .track span {
+        display: block;
+        height: 100%;
+        width: 40%;
+        border-radius: inherit;
+        background: linear-gradient(90deg, #0a5a50, #ccb071);
+        transition: width 0.7s ease;
+      }
+
+      .insights {
+        display: grid;
+        gap: 12px;
+      }
+
+      .insight {
+        padding: 16px;
+        border-radius: 20px;
+        background: rgba(255,255,255,0.46);
+        border: 1px solid rgba(5,63,58,0.1);
+        box-shadow:
+          inset 0 1px 1px rgba(255,255,255,0.7),
+          0 12px 28px rgba(4,32,29,0.08);
+      }
+
+      .insight strong {
+        color: var(--deep);
+      }
+
+      .insight p {
+        margin: 6px 0 0;
+        color: rgba(20,51,48,0.7);
+        line-height: 1.55;
+      }
+
+      .cta-area {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 12px;
+        margin-top: 24px;
+      }
+
+      .notice {
+        margin-top: 22px;
+        color: rgba(20,51,48,0.62);
+        font-size: 0.88rem;
+        line-height: 1.55;
+      }
+
+      .reveal {
+        opacity: 0;
+        transform: translateY(30px);
+        transition: opacity 0.85s ease, transform 0.85s ease;
+      }
+
+      .reveal.is-visible {
+        opacity: 1;
+        transform: translateY(0);
+      }
+
+      @media (max-width: 980px) {
+        .hero-grid,
+        .simulator {
+          grid-template-columns: 1fr;
+        }
+
+        .result-card {
+          position: relative;
+          top: 0;
+        }
+
+        .visual-card {
+          min-height: 460px;
+        }
+      }
+
+      @media (max-width: 640px) {
+        .container {
+          width: min(100% - 28px, 1180px);
+        }
+
+        .topbar nav {
+          display: none;
+        }
+
+        .hero {
+          padding-top: 54px;
+        }
+
+        .hero-copy,
+        .form-card,
+        .result-card {
+          padding: 28px;
+          border-radius: 34px;
+        }
+
+        .two-cols,
+        .result-top {
+          grid-template-columns: 1fr;
+          display: grid;
+        }
+
+        .result-score {
+          width: 120px;
+          height: 120px;
+        }
+
+        .graph-stage {
+          gap: 8px;
+          padding-left: 0;
+          padding-right: 0;
+        }
+
+        .bar-group {
+          width: 58px;
+        }
+
+        .bar {
+          width: 44px;
+        }
+      }
+    </style>
+  </head>
+
+  <body>
+    <main class="page">
+      <header class="topbar">
+        <a class="brand" href="./">
+          <span class="brand-mark"></span>
+          <span>Epigenics</span>
+        </a>
+
+        <nav>
+          <a href="./">Voltar ao site</a>
+          <a href="#simulador">Simulador</a>
+          <a href="#resultado">Resultado</a>
+        </nav>
+      </header>
+
+      <section class="hero">
+        <div class="container hero-grid">
+          <div class="paper-card hero-copy reveal">
+            <span class="eyebrow">Simulador educativo</span>
+            <h1>Veja como seu estilo de vida pode pedir uma análise mais personalizada.</h1>
+            <p class="lead">
+              Responda algumas perguntas simples e veja um mapa visual com os principais
+              pontos que podem se beneficiar de uma avaliação epigenética orientada.
+            </p>
+
+            <div class="hero-actions">
+              <a class="btn btn-primary" href="#simulador">Começar agora</a>
+              <a class="btn btn-secondary" href="./">Voltar ao site</a>
+            </div>
+          </div>
+
+          <div class="paper-card visual-card reveal">
+            <div class="mini-window">
+              <span class="eyebrow">Prévia visual</span>
+
+              <div class="graph-stage" aria-hidden="true">
+                <div class="bar-group">
+                  <div class="bar"><div class="bar-fill" style="height: 62%"></div></div>
+                  <span class="bar-label">Sono</span>
+                </div>
+
+                <div class="bar-group">
+                  <div class="bar"><div class="bar-fill" style="height: 78%"></div></div>
+                  <span class="bar-label">Rotina</span>
+                </div>
+
+                <div class="bar-group">
+                  <div class="bar"><div class="bar-fill" style="height: 48%"></div></div>
+                  <span class="bar-label">Energia</span>
+                </div>
+
+                <div class="bar-group">
+                  <div class="bar"><div class="bar-fill" style="height: 70%"></div></div>
+                  <span class="bar-label">Hábitos</span>
+                </div>
+              </div>
+
+              <div class="score-bubble">
+                <strong id="previewScore">68</strong>
+                <span>potencial de personalização</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="section" id="simulador">
+        <div class="container">
+          <div class="section-heading reveal">
+            <span class="eyebrow">Mapa Epigenics</span>
+            <h2>Preencha para gerar uma simulação personalizada.</h2>
+            <p>
+              O objetivo não é diagnosticar, mas mostrar de forma clara quando faz sentido
+              buscar uma análise mais profunda e individualizada.
+            </p>
+          </div>
+
+          <div class="simulator">
+            <form class="paper-card form-card reveal" id="epiForm">
+              <div class="form-grid">
+                <div class="two-cols">
+                  <label>
+                    Idade
+                    <input type="number" id="age" min="18" max="90" value="35" />
+                  </label>
+
+                  <label>
+                    Sexo biológico
+                    <select id="sex">
+                      <option value="female">Feminino</option>
+                      <option value="male">Masculino</option>
+                      <option value="other">Prefiro não informar</option>
+                    </select>
+                  </label>
+                </div>
+
+                <div class="two-cols">
+                  <label>
+                    Altura em cm
+                    <input type="number" id="height" min="130" max="230" value="170" />
+                  </label>
+
+                  <label>
+                    Peso em kg
+                    <input type="number" id="weight" min="35" max="220" value="78" />
+                  </label>
+                </div>
+
+                <label>
+                  Atividade física por semana
+                  <small>Use minutos aproximados de caminhada, treino, esporte ou atividade moderada.</small>
+                  <select id="activity">
+                    <option value="10">Menos de 60 minutos por semana</option>
+                    <option value="38">Entre 60 e 149 minutos por semana</option>
+                    <option value="16">150 minutos ou mais por semana</option>
+                    <option value="8">300 minutos ou mais por semana</option>
+                  </select>
+                </label>
+
+                <label>
+                  Sono médio por noite
+                  <select id="sleep">
+                    <option value="58">Menos de 6 horas</option>
+                    <option value="32">Entre 6 e 7 horas</option>
+                    <option value="12">Entre 7 e 9 horas</option>
+                    <option value="36">Mais de 9 horas ou sono irregular</option>
+                  </select>
+                </label>
+
+                <label>
+                  Alimentação na maior parte da semana
+                  <select id="food">
+                    <option value="14">Boa presença de alimentos naturais, proteínas e fibras</option>
+                    <option value="34">Regular, alterna entre refeições boas e escolhas rápidas</option>
+                    <option value="58">Poucas fibras, muitos ultraprocessados ou açúcar frequente</option>
+                  </select>
+                </label>
+
+                <label>
+                  Estresse percebido
+                  <select id="stress">
+                    <option value="12">Baixo, rotina controlada</option>
+                    <option value="34">Moderado, oscila conforme a semana</option>
+                    <option value="62">Alto, com tensão frequente</option>
+                  </select>
+                </label>
+
+                <label>
+                  Tabagismo
+                  <select id="smoking">
+                    <option value="8">Nunca fumei</option>
+                    <option value="28">Ex-fumante</option>
+                    <option value="72">Fumo atualmente</option>
+                  </select>
+                </label>
+
+                <label>
+                  Energia, foco e disposição
+                  <select id="energy">
+                    <option value="12">Boa na maioria dos dias</option>
+                    <option value="35">Oscila bastante</option>
+                    <option value="60">Baixa com frequência</option>
+                  </select>
+                </label>
+
+                <label>
+                  Histórico familiar ou preocupação metabólica
+                  <select id="family">
+                    <option value="12">Não tenho grande preocupação no momento</option>
+                    <option value="34">Tenho histórico familiar ou exames que merecem atenção</option>
+                    <option value="56">Tenho sintomas, alterações recorrentes ou muita dúvida sobre meu corpo</option>
+                  </select>
+                </label>
+
+                <button class="btn btn-primary" type="button" id="calculate">
+                  Gerar meu mapa
+                </button>
+              </div>
+            </form>
+
+            <aside class="paper-card result-card reveal" id="resultado">
+              <div class="result-top">
+                <div class="result-title">
+                  <span class="eyebrow">Resultado</span>
+                  <h3 id="resultTitle">Potencial de personalização</h3>
+                  <p id="resultText">
+                    Preencha as perguntas para visualizar como a avaliação epigenética pode
+                    ajudar a organizar prioridades de saúde.
+                  </p>
+                </div>
+
+                <div class="result-score">
+                  <div>
+                    <strong id="score">--</strong>
+                    <span>índice</span>
+                  </div>
+                </div>
+              </div>
+
+              <div class="metric-bars">
+                <div class="metric">
+                  <div class="metric-head">
+                    <span>Metabolismo</span>
+                    <span id="metabolismValue">--</span>
+                  </div>
+                  <div class="track"><span id="metabolismBar"></span></div>
+                </div>
+
+                <div class="metric">
+                  <div class="metric-head">
+                    <span>Sono e recuperação</span>
+                    <span id="sleepValue">--</span>
+                  </div>
+                  <div class="track"><span id="sleepBar"></span></div>
+                </div>
+
+                <div class="metric">
+                  <div class="metric-head">
+                    <span>Estresse e inflamação</span>
+                    <span id="stressValue">--</span>
+                  </div>
+                  <div class="track"><span id="stressBar"></span></div>
+                </div>
+
+                <div class="metric">
+                  <div class="metric-head">
+                    <span>Hábitos e ambiente</span>
+                    <span id="habitsValue">--</span>
+                  </div>
+                  <div class="track"><span id="habitsBar"></span></div>
+                </div>
+              </div>
+
+              <div class="insights" id="insights">
+                <div class="insight">
+                  <strong>Como interpretar?</strong>
+                  <p>
+                    Quanto maior o índice, maior a oportunidade de entender seu corpo com
+                    uma avaliação mais personalizada.
+                  </p>
+                </div>
+              </div>
+
+              <div class="cta-area">
+                <a class="btn btn-primary" id="whatsappBtn" target="_blank" rel="noreferrer">
+                  Conversar no WhatsApp
+                </a>
+
+                <button class="btn btn-secondary" type="button" id="resetBtn">
+                  Refazer simulação
+                </button>
+              </div>
+
+              <p class="notice">
+                Este simulador é educativo e não substitui consulta, diagnóstico, exames
+                laboratoriais ou acompanhamento médico. O resultado real de um exame
+                epigenético depende de análise técnica e interpretação profissional.
+              </p>
+            </aside>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <script>
+      const WHATSAPP_NUMBER = "5500000000000"
+
+      const fields = [
+        "age",
+        "sex",
+        "height",
+        "weight",
+        "activity",
+        "sleep",
+        "food",
+        "stress",
+        "smoking",
+        "energy",
+        "family",
+      ]
+
+      const $ = id => document.getElementById(id)
+
+      function clamp(value, min, max) {
+        return Math.min(Math.max(value, min), max)
+      }
+
+      function getBMI() {
+        const height = Number($("height").value) / 100
+        const weight = Number($("weight").value)
+
+        if (!height || !weight) return 0
+
+        return weight / (height * height)
+      }
+
+      function bmiAttentionScore(bmi) {
+        if (!bmi) return 30
+        if (bmi < 18.5) return 42
+        if (bmi < 25) return 16
+        if (bmi < 30) return 42
+        if (bmi < 35) return 62
+        return 76
+      }
+
+      function ageScore(age) {
+        if (age < 30) return 12
+        if (age < 45) return 22
+        if (age < 60) return 34
+        return 46
+      }
+
+      function calculate() {
+        const age = Number($("age").value)
+        const bmi = getBMI()
+
+        const activity = Number($("activity").value)
+        const sleep = Number($("sleep").value)
+        const food = Number($("food").value)
+        const stress = Number($("stress").value)
+        const smoking = Number($("smoking").value)
+        const energy = Number($("energy").value)
+        const family = Number($("family").value)
+
+        const metabolism = clamp(
+          bmiAttentionScore(bmi) * 0.55 + food * 0.18 + activity * 0.14 + family * 0.13,
+          0,
+          100
+        )
+
+        const sleepRecovery = clamp(
+          sleep * 0.72 + stress * 0.16 + energy * 0.12,
+          0,
+          100
+        )
+
+        const stressInflammation = clamp(
+          stress * 0.42 + sleep * 0.2 + food * 0.18 + smoking * 0.1 + energy * 0.1,
+          0,
+          100
+        )
+
+        const habits = clamp(
+          activity * 0.24 + food * 0.28 + smoking * 0.28 + ageScore(age) * 0.08 + family * 0.12,
+          0,
+          100
+        )
+
+        const total = Math.round(
+          metabolism * 0.3 +
+          sleepRecovery * 0.22 +
+          stressInflammation * 0.24 +
+          habits * 0.24
+        )
+
+        updateResult({
+          total,
+          bmi,
+          metabolism: Math.round(metabolism),
+          sleepRecovery: Math.round(sleepRecovery),
+          stressInflammation: Math.round(stressInflammation),
+          habits: Math.round(habits),
+        })
+      }
+
+      function updateMetric(name, value) {
+        $(name + "Value").textContent = value + "/100"
+        $(name + "Bar").style.width = value + "%"
+      }
+
+      function updateHeroBars(result) {
+        const fills = document.querySelectorAll(".bar-fill")
+
+        const values = [
+          result.sleepRecovery,
+          result.metabolism,
+          result.stressInflammation,
+          result.habits,
+        ]
+
+        fills.forEach((fill, index) => {
+          fill.style.height = clamp(values[index], 8, 92) + "%"
+        })
+
+        $("previewScore").textContent = result.total
+      }
+
+      function updateResult(result) {
+        $("score").textContent = result.total
+
+        updateMetric("metabolism", result.metabolism)
+        updateMetric("sleep", result.sleepRecovery)
+        updateMetric("stress", result.stressInflammation)
+        updateMetric("habits", result.habits)
+
+        updateHeroBars(result)
+
+        let title = ""
+        let text = ""
+
+        if (result.total <= 32) {
+          title = "Bom ponto de partida"
+          text = "Seu mapa indica bons sinais de equilíbrio. Mesmo assim, uma avaliação personalizada pode ajudar a otimizar rotina, prevenção e performance."
+        } else if (result.total <= 55) {
+          title = "Vale investigar com mais precisão"
+          text = "Seu estilo de vida mostra alguns pontos que podem se beneficiar de uma leitura mais individualizada, principalmente para ajustar hábitos com mais estratégia."
+        } else if (result.total <= 74) {
+          title = "Alta oportunidade de personalização"
+          text = "O resultado sugere que sono, metabolismo, energia ou rotina podem estar pedindo uma análise mais completa para orientar decisões com mais segurança."
+        } else {
+          title = "Prioridade para avaliação orientada"
+          text = "Seu mapa mostra vários pontos de atenção. O próximo passo ideal é conversar com uma equipe especializada e entender quais exames e condutas fazem sentido para você."
+        }
+
+        $("resultTitle").textContent = title
+        $("resultText").textContent = text
+
+        const bmiText = result.bmi ? result.bmi.toFixed(1) : "--"
+
+        $("insights").innerHTML = `
+          <div class="insight">
+            <strong>IMC estimado: ${bmiText}</strong>
+            <p>O IMC é apenas um ponto de triagem. Ele não substitui avaliação de composição corporal, exames laboratoriais e interpretação profissional.</p>
+          </div>
+
+          <div class="insight">
+            <strong>Maior oportunidade do seu mapa</strong>
+            <p>${getMainOpportunity(result)}</p>
+          </div>
+
+          <div class="insight">
+            <strong>Como o exame pode ajudar</strong>
+            <p>Uma avaliação epigenética pode apoiar uma conversa mais personalizada sobre metabolismo, inflamação, energia, sono e hábitos de vida.</p>
+          </div>
+        `
+
+        const msg = encodeURIComponent(
+          `Olá! Fiz o Simulador Epigenics e meu índice foi ${result.total}/100. Gostaria de entender melhor o exame epigenético e falar com a equipe.`
+        )
+
+        $("whatsappBtn").href = `https://wa.me/${WHATSAPP_NUMBER}?text=${msg}`
+      }
+
+      function getMainOpportunity(result) {
+        const items = [
+          [
+            "metabolismo",
+            result.metabolism,
+            "Seu metabolismo aparece como um ponto importante para individualizar alimentação, composição corporal e energia.",
+          ],
+          [
+            "sono",
+            result.sleepRecovery,
+            "Sono e recuperação aparecem como pontos importantes para melhorar disposição, equilíbrio e rotina.",
+          ],
+          [
+            "estresse",
+            result.stressInflammation,
+            "Estresse e inflamação aparecem como pontos importantes para entender como sua rotina pode estar impactando seu corpo.",
+          ],
+          [
+            "hábitos",
+            result.habits,
+            "Hábitos e ambiente aparecem como pontos importantes para transformar dados em escolhas mais direcionadas.",
+          ],
+        ]
+
+        items.sort((a, b) => b[1] - a[1])
+        return items[0][2]
+      }
+
+      function resetForm() {
+        $("age").value = 35
+        $("sex").value = "female"
+        $("height").value = 170
+        $("weight").value = 78
+        $("activity").value = 10
+        $("sleep").value = 32
+        $("food").value = 34
+        $("stress").value = 34
+        $("smoking").value = 8
+        $("energy").value = 35
+        $("family").value = 34
+        calculate()
+      }
+
+      $("calculate").addEventListener("click", calculate)
+      $("resetBtn").addEventListener("click", resetForm)
+
+      fields.forEach(id => {
+        $(id).addEventListener("change", calculate)
+        $(id).addEventListener("input", calculate)
+      })
+
+      const revealElements = document.querySelectorAll(".reveal")
+
+      const observer = new IntersectionObserver(
+        entries => {
+          entries.forEach(entry => {
+            if (entry.isIntersecting) {
+              entry.target.classList.add("is-visible")
+            }
+          })
+        },
+        { threshold: 0.14 }
+      )
+
+      revealElements.forEach(element => observer.observe(element))
+
+      calculate()
+    </script>
+  </body>
+</html>
