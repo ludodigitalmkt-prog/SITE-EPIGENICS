@@ -52,9 +52,10 @@ function App() {
 
   return (
     <main className="site">
-      <Header />
+  <Header />
+  <NewsTicker />
 
-      <section className="hero-section">
+  <section className="hero-section">
         <div className="paper-layer paper-layer-one"></div>
         <div className="paper-layer paper-layer-two"></div>
 
@@ -296,5 +297,66 @@ function FeatureCard({ image, number, title, text }) {
     </article>
   )
 }
+function NewsTicker() {
+  const newsItems = [
+    {
+      source: 'OMS',
+      text: '18 milhões de mortes por doenças crônicas acontecem antes dos 70 anos.',
+      url: 'https://www.who.int/news-room/fact-sheets/detail/noncommunicable-diseases',
+    },
+    {
+      source: 'OMS',
+      text: 'Hábitos como alimentação, sedentarismo e tabagismo aumentam riscos metabólicos.',
+      url: 'https://www.who.int/news-room/fact-sheets/detail/noncommunicable-diseases',
+    },
+    {
+      source: 'NHGRI',
+      text: 'O epigenoma pode mudar ao longo da vida e responder ao estilo de vida.',
+      url: 'https://www.genome.gov/about-genomics/fact-sheets/Epigenomics-Fact-Sheet',
+    },
+    {
+      source: 'NHGRI',
+      text: 'Epigenômica pode ajudar pesquisas em prevenção, diagnóstico e tratamento.',
+      url: 'https://www.genome.gov/about-genomics/fact-sheets/Epigenomics-Fact-Sheet',
+    },
+    {
+      source: 'Live Science',
+      text: 'Pesquisadores estudam teste de sangue para detectar fibrose hepática mais cedo.',
+      url: 'https://www.livescience.com/health/medicine-drugs/new-blood-test-aims-to-spot-liver-scarring-before-it-paves-the-way-to-cancer',
+    },
+    {
+      source: 'The Guardian',
+      text: 'Estudos com relógios epigenéticos avaliam marcadores ligados ao envelhecimento biológico.',
+      url: 'https://www.theguardian.com/science/2026/mar/09/taking-multivitamin-daily-could-help-to-slow-biological-ageing-study-suggests',
+    },
+  ]
 
+  const repeatedItems = [...newsItems, ...newsItems]
+
+  return (
+    <section className="news-ticker" aria-label="Notícias e ciência">
+      <div className="ticker-label">
+        <span></span>
+        Ciência em destaque
+      </div>
+
+      <div className="ticker-track">
+        <div className="ticker-content">
+          {repeatedItems.map((item, index) => (
+            <a
+              className="ticker-item"
+              href={item.url}
+              target="_blank"
+              rel="noreferrer"
+              key={`${item.source}-${index}`}
+            >
+              <strong>{item.source}</strong>
+              <span>{item.text}</span>
+            </a>
+          ))}
+        </div>
+      </div>
+    </section>
+  )
+}
 export default App
