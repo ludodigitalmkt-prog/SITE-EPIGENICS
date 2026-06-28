@@ -756,3 +756,29 @@ h3 {
     border-radius: 34px;
   }
 }
+.feature-image-wrap {
+  width: 100%;
+  height: 150px;
+  margin-bottom: 24px;
+  border-radius: 28px;
+  overflow: hidden;
+  background: linear-gradient(145deg, #dfe8dd, #f6f0de);
+  box-shadow:
+    inset 0 1px 2px rgba(255,255,255,0.45),
+    0 18px 38px rgba(4, 32, 29, 0.22);
+}
+
+.feature-image-wrap img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.45s ease;
+}
+
+.feature-card:hover .feature-image-wrap img {
+  transform: scale(1.08);
+}
+
+.feature-card span {
+  margin-bottom: 18px;
+}

@@ -18,6 +18,15 @@ function App() {
 
   const aboutImage = `${BASE_URL}sections/section-sobre-epigenics.webp.png`
 
+  const evaluationImages = [
+    `${BASE_URL}sections/section-exame-epigenetico.webp.png`,
+    `${BASE_URL}sections/section-seguranca-exame.webp.png`,
+    `${BASE_URL}sections/section-medicina-personalizada.webp.png`,
+    `${BASE_URL}sections/section-coleta-exame.webp.png`,
+    `${BASE_URL}sections/section-sobre-epigenics.webp.png`,
+    `${BASE_URL}hero/hero-desktop-02.webp.png`,
+  ]
+
   useEffect(() => {
     const elements = document.querySelectorAll('.reveal')
 
@@ -143,36 +152,42 @@ function App() {
 
           <div className="cards-grid">
             <FeatureCard
+              image={evaluationImages[0]}
               number="01"
               title="Metabolismo"
               text="Apoio para entender energia, composição corporal e resposta alimentar."
             />
 
             <FeatureCard
+              image={evaluationImages[1]}
               number="02"
               title="Inflamação"
               text="Avaliação de fatores relacionados ao equilíbrio inflamatório."
             />
 
             <FeatureCard
+              image={evaluationImages[2]}
               number="03"
               title="Sono"
               text="Informações que ajudam a observar qualidade do descanso e recuperação."
             />
 
             <FeatureCard
+              image={evaluationImages[3]}
               number="04"
               title="Performance"
               text="Direcionamento para rotina, disposição, foco e vitalidade."
             />
 
             <FeatureCard
+              image={evaluationImages[4]}
               number="05"
               title="Nutrição"
               text="Base para condutas mais alinhadas à necessidade individual."
             />
 
             <FeatureCard
+              image={evaluationImages[5]}
               number="06"
               title="Prevenção"
               text="Mais consciência para decisões de saúde a longo prazo."
@@ -263,9 +278,13 @@ function InfoItem({ image, title, text }) {
   )
 }
 
-function FeatureCard({ number, title, text }) {
+function FeatureCard({ image, number, title, text }) {
   return (
     <article className="feature-card reveal">
+      <div className="feature-image-wrap">
+        <img src={image} alt={title} />
+      </div>
+
       <span>{number}</span>
       <h3>{title}</h3>
       <p>{text}</p>
